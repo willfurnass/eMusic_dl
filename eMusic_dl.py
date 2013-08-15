@@ -57,7 +57,7 @@ def eMusic_dl(emx_fname, target_path):
                 # Get album+artist specific info
                 artist = clean_name(track.find('ARTIST').text)
                 album = clean_name(track.find('ALBUM').text)
-                print "Downloading '{}' by {}:".format(album, artist)
+                print "Downloading '{}' by {} to {}:".format(album, artist, download_path)
                 download_path = os.path.join(target_path, artist, album)
                 # Create path to save music and album art into
                 mkdir_p(download_path)
