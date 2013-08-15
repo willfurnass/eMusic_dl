@@ -5,6 +5,7 @@ import xml.etree.cElementTree as etree
 import os, errno
 import sys
 import pycurl
+import shutil
 
 def mkdir_p(path):
     """Make all directories in a path if they don't already exist."""
@@ -61,11 +62,16 @@ def eMusic_dl(emx_fname, target_path):
                 # Create path to save music and album art into
                 mkdir_p(download_path)
                 
+                # Copy EMX to download dir
+                print " - copying EMX file to download directory"
+                shutil.copy2(emx_fname, os.path.join(download_path, 
+                    '{}-{}.emx'.format(artist, album)))
+                    
                 # Download album art
                 for elem in ('ALBUMART', 'ALBUMARTLARGE'):
                     print " - getting album art"
                     download(track.find(elem).text, download_path)
-                    
+
             # Download tracks
             track_num = int(track.find('TRACKNUM').text)
             track_url = track.find('TRACKURL').text
